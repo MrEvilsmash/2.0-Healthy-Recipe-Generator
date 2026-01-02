@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Recipe Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Healthy Recipe Generator</h1>
+
+
+        <!-- Left and Right Images -->
+        <div class="image-content-left">
+            <img src="{{ url_for('static', filename='suke.png') }}" alt="Recipe Image 1">
+        </div>
+        <div class="image-content-right">
+            <img src="{{ url_for('static', filename='tra.png') }}" alt="Recipe Image 2">
+        </div>
+
+        <form action="/submit-form" method="POST" class="form-container">
+            <div class="input-box">
+                <label for="user_input">What type of recipe are you looking for?</label>
+                <input type="text" id="user_input" name="user_input" placeholder="e.g., Salad, Soup" required>
+            </div>
+
+            <div class="input-box">
+                <label for="dietary_preference">Dietary Preference</label>
+                <select id="dietary_preference" name="dietary_preference" required>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Gluten-Free">Gluten-Free</option>
+                    <option value="Low-Carb">Low-Carb</option>
+                    <option value="Keto">Keto</option>
+                    <option value="Paleo">Paleo</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Get Recipe</button>
+        </form>
+
+        {% if recipe_steps %}
+        <div class="response-box">
+            <p><strong>Recipe Suggestion:</strong></p>
+            <ul>
+                {% for line in recipe_steps %}
+                    <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
